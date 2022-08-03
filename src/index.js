@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
-import app from "./firebase";
-
-console.log(app);
+//import firebaseApp from "./fbase";
+//console.log(firebaseApp); for first checking
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <App />

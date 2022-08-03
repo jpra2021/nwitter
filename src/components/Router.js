@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+//import { useState } from "react";
 // check after next week
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Auth from "../routes/Auth";
@@ -16,8 +16,7 @@ import Home from "../routes/Home";
 //hooks?
 
 //export default () => {
-const AppRouter = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+const AppRouter = ({ isLoggedIn }) => {
   return (
     <Router>
       <Routes>
