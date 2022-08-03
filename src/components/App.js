@@ -5,10 +5,11 @@ import { authService } from "fbase";
 
 //console.log(authService.currentUser); #null
 function App() {
+  // eslint-disable-next-line
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   return (
     <>
-      <AppRouter isLoggedIn={isLoggedIn} />;
+      <AppRouter isLoggedIn={isLoggedIn} />
       <footer>&copy; {new Date().getFullYear()} Nwitter</footer>
     </>
   );

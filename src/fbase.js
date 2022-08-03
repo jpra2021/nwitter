@@ -18,4 +18,5 @@ const firebaseApp = initializeApp(firebaseConfig);
 //-export default app; (first)
 
 //v9
-export const authService = getAuth(firebaseApp);
+//export const authService = getAuth(firebaseApp);
+export const authService = getAuth();
