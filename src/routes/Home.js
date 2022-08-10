@@ -1,8 +1,14 @@
 import { dbService } from "fbase";
 import React, { useEffect, useState } from "react";
-import { collection, addDoc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState(""); //for CREATE/CRUD/Post
   const [nweets, setNweets] = useState([]); //for READ/CRUD/Get 재료
   const getNweets = async () => {
@@ -23,12 +29,12 @@ const Home = () => {
   }, []);
 
   const onSubmit = async (event) => {
-    //for C
     event.preventDefault();
     //console.log("onsubmit working");
     await addDoc(collection(dbService, "nweets"), {
-      nweet: nweet,
+      text: nweet,
       createdAt: Date.now(),
+      creatorId: userObj.uid,
     });
     //console.log("ok?");
     setNweet("");
@@ -41,7 +47,6 @@ const Home = () => {
     setNweet(value);
   };
 
-  console.log(nweets);
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -56,8 +61,8 @@ const Home = () => {
       </form>
       <div>
         {nweets.map((nweet) => (
-          <div key={nweet.id}>
-            <h4>{nweet.nweet}</h4>
+          <div key={userObj.uid}>
+            <h4>{nweet.text}</h4>
           </div>
         ))}
       </div>

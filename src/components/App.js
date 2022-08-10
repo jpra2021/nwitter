@@ -7,27 +7,33 @@ import { onAuthStateChanged } from "firebase/auth";
 //console.log(authService.currentUser); #null
 function App() {
   const [init, setInit] = useState(false);
-  // eslint-disable-next-line
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null); //to check user
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setIsLoggedIn(true);
-        console.log("로그인한 유저:", user);
-        console.log("Loginstatus:", isLoggedIn);
+        setUserObj(user); //will be called when Logged in
+        //console.log("로그인한 유저:", user);
+        //console.log("Loginstatus:", isLoggedIn);
+        //console.log("useridcheck:", user.uid);
       } else {
         setIsLoggedIn(false);
-        console.log("Loginstatus:", isLoggedIn);
+        //console.log("Loginstatus:", isLoggedIn);
       }
       setInit(true);
-      console.log("Loginstatus:", isLoggedIn);
-      console.log("setInitStatus", init);
+      //console.log("Loginstatus:", isLoggedIn);
+      //console.log("setInitStatus", init);
     });
   }, []);
 
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "initializing...."}
+      {init ? (
+        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> //setting parameters
+      ) : (
+        "initializing...."
+      )}
       <footer>&copy; {new Date().getFullYear()} Nwitter</footer>
     </>
   );

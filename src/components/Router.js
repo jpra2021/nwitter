@@ -18,14 +18,15 @@ import Navigation from "./Navigation";
 //hooks?
 
 //export default () => {
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn, userObj }) => {
+  //console.log("uid check in AppRouter:", userObj);
   return (
     <Router>
       {isLoggedIn && <Navigation />}
       <Routes>
         {isLoggedIn ? (
           <>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Home userObj={userObj} />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
           </>
         ) : (
