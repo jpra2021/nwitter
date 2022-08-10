@@ -13,11 +13,15 @@ function App() {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setIsLoggedIn(true);
-        console.log(user);
+        console.log("로그인한 유저:", user);
+        console.log("Loginstatus:", isLoggedIn);
       } else {
         setIsLoggedIn(false);
+        console.log("Loginstatus:", isLoggedIn);
       }
       setInit(true);
+      console.log("Loginstatus:", isLoggedIn);
+      console.log("setInitStatus", init);
     });
   }, []);
 
