@@ -3,29 +3,29 @@ import React, { useEffect, useState } from "react";
 import {
   collection,
   addDoc,
-  getDoc,
-  getDocs,
   onSnapshot,
+  query,
+  orderBy,
 } from "firebase/firestore";
+import Nweet from "components/Nweets";
 
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState(""); //for CREATE/CRUD/Post
   const [nweets, setNweets] = useState([]); //for READ/CRUD/Get 재료
-  const getNweets = async () => {
-    const dbNweets = await getDocs(collection(dbService, "nweets"));
-    //console.log("nweets는 :", dbNweets); //to check nweets
-    dbNweets.forEach((document) => {
-      //console.log("document의 data는:", document.data());
-      const nweetObject = {
-        ...document.data(), //spread attribute
-        id: document.id,
-      };
-      setNweets((prev) => [nweetObject, ...prev]);
-    });
-  };
 
+  //new
   useEffect(() => {
-    getNweets();
+    const q = query(
+      collection(dbService, "nweets"),
+      orderBy("createdAt", "desc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const nweetArr = snapshot.docs.map((document) => ({
+        id: document.id,
+        ...document.data(),
+      }));
+      setNweets(nweetArr);
+    });
   }, []);
 
   const onSubmit = async (event) => {
@@ -61,9 +61,11 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {nweets.map((nweet) => (
-          <div key={userObj.uid}>
-            <h4>{nweet.text}</h4>
-          </div>
+          <Nweet
+            key={nweet.id}
+            nweetObj={nweet}
+            isOwner={nweet.creatorId === userObj.uid}
+          />
         ))}
       </div>
     </div>
