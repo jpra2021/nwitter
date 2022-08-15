@@ -42,6 +42,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
               value={newNweet}
               required
               onChange={onChange}
+              maxLength={140}
             />
             <input type="submit" value="Update Nweet" />
           </form>
