@@ -16,7 +16,7 @@ import Nweet from "components/Nweets";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState(""); //for CREATE/CRUD/Post
   const [nweets, setNweets] = useState([]); //for READ/CRUD/Get 재료
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
 
   //new
   useEffect(() => {
@@ -37,17 +37,15 @@ const Home = ({ userObj }) => {
     event.preventDefault();
     let attachmentURL = "";
 
-    if (attachmentURL != "") {
-      const root = storageSerivce;
-      const imageFolder = `${userObj.uid}/${uuidv4()}`;
-      const attachmentRef = ref(root, imageFolder); //child
+    if (attachment !== "") {
+      const attachmentRef = ref(storageSerivce, `${userObj.uid}/${uuidv4()}`); //child
       const response = await uploadString(
         attachmentRef,
         attachment,
         "data_url"
       );
       console.log(response);
-      attachmentURL = await getDownloadURL(attachmentRef, attachment);
+      attachmentURL = await getDownloadURL(attachmentRef);
     }
     const nweetObj = {
       text: nweet,
