@@ -156,12 +156,13 @@ const Profile = ({ userObj, refreshUser }) => {
               />
               <button
                 name="Submit"
-                value="Update Profile"
                 className="formBtn"
                 style={{
                   marginTop: 10,
                 }}
-              />
+              >
+                "Update Profile"
+              </button>
               {attachment && (
                 <div>
                   <img src={attachment} width="50px" height="50px" />
