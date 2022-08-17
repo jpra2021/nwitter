@@ -154,7 +154,7 @@ const Profile = ({ userObj, refreshUser }) => {
                 autoFocus
                 className="formInput"
               />
-              <input
+              <button
                 name="Submit"
                 value="Update Profile"
                 className="formBtn"
