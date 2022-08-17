@@ -32,6 +32,10 @@ form {
   width: 100%;
 }
 
+.profileSetting {
+  width: 100%;
+}
+
 .nweet-input::placeholder {
   color: white;
   opacity: 0.9;
@@ -55,7 +59,6 @@ form {
 }
 
 .formBtn {
-  cursor: pointer;
   width: 100%;
   padding: 7px 20px;
   text-align: center;
@@ -68,6 +71,11 @@ form {
 .cancelBtn {
   cursor: pointer;
   background-color: tomato;
+}
+
+.editBtn {
+  cursor: pointer;
+  background-color: #04aaff;
 }
 
 /* Profile Page */
@@ -84,6 +92,32 @@ form {
   margin-top: 50px;
 }
 
+.edit {
+  margin-top: 50px;
+  position: static;
+}
+
+.containerForProfile {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+#profileImg {
+  right: -10px;
+  top: 20px;
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+}
 /* Nwitter Factory */
 
 .factoryForm {

@@ -1,4 +1,5 @@
 import App from "components/App";
+import Nweet from "components/Nweets";
 import { authService, dbService, storageSerivce } from "fbase";
 import { updateProfile } from "firebase/auth";
 import {
@@ -24,6 +25,7 @@ const Profile = ({ userObj, refreshUser }) => {
   const [newPhoto, setNewPhoto] = useState("");
   const [isToggleEdit, setIsToggleEdit] = useState(false);
   const [attachment, setAttachment] = useState("");
+  const [myNweets, setMyNweets] = useState([]);
 
   const navigate = useNavigate();
   const onLogOut = () => {
@@ -38,10 +40,9 @@ const Profile = ({ userObj, refreshUser }) => {
       where("creatorId", "==", userObj.uid),
       orderBy("createdAt")
     );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      //console.log(doc.id, "=>", doc.data());
-    });
+    const myNweets = await getDocs(q);
+    const nweetsArr = myNweets.docs.map((item) => ({ ...item.data() }));
+    setMyNweets(nweetsArr);
   };
 
   useEffect(() => {
@@ -89,7 +90,6 @@ const Profile = ({ userObj, refreshUser }) => {
       }
 
       if (typeof newPhoto === "string") {
-        //사진 변화 있으면 체크
         const ProfileFolder = `${userObj.uid}/ProfileImage`;
         const attachmentRef = ref(storageSerivce, ProfileFolder);
         const response = await uploadString(
@@ -126,15 +126,15 @@ const Profile = ({ userObj, refreshUser }) => {
 
   return (
     <>
-      <div>
-        <h2>{userObj.displayName}</h2>
-        <img src={userObj.photoURL} height="100px" width="100px" />
-      </div>
-
       {isToggleEdit ? (
         <>
           <div className="container">
-            <button onClick={ToggleEditing}>Cancel</button>
+            <button
+              onClick={ToggleEditing}
+              className="formBtn cancelBtn logOut"
+            >
+              Cancel
+            </button>
             <form className="profileForm" onSubmit={onSubmit}>
               <input
                 name="name"
@@ -169,17 +169,23 @@ const Profile = ({ userObj, refreshUser }) => {
                 </div>
               )}
             </form>
-            <span className="formBtn cancelBtn logOut" onClick={onLogOut}>
-              Log Out
-            </span>
           </div>
         </>
       ) : (
         <>
-          <button onClick={ToggleEditing}>Edit my Profile</button>
-          <div>
-            show my nweets testing
-            {}
+          <div className="container">
+            <span onClick={ToggleEditing} className="formBtn editBtn edit">
+              Edit my Profile
+            </span>
+            <span className="formBtn cancelBtn logOut" onClick={onLogOut}>
+              Log Out
+            </span>
+
+            <div style={{ marginTop: 30 }}>
+              {myNweets.map((nweet) => (
+                <Nweet nweetObj={nweet} isOwner={true} />
+              ))}
+            </div>
           </div>
         </>
       )}
