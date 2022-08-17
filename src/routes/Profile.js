@@ -130,34 +130,49 @@ const Profile = ({ userObj, refreshUser }) => {
         <h2>{userObj.displayName}</h2>
         <img src={userObj.photoURL} height="100px" width="100px" />
       </div>
-      <button onClick={onLogOut}>Log Out</button>
 
       {isToggleEdit ? (
         <>
-          <button onClick={ToggleEditing}>Cancel</button>
-          <form className="username" onSubmit={onSubmit}>
-            <input
-              name="name"
-              placeholder="displayname"
-              type="text"
-              value={newName}
-              onChange={onChange}
-            />
-            <input
-              name="photo"
-              placeholder={userObj.photoURL}
-              type="file"
-              accept="image/*"
-              onChange={onFileChange}
-            />
-            <button name="Submit">Edit</button>
-            {attachment && (
-              <div>
-                <img src={attachment} width="50px" height="50px" />
-                <button onClick={onClearAttachment}>Clear Photo</button>
-              </div>
-            )}
-          </form>
+          <div className="container">
+            <button onClick={ToggleEditing}>Cancel</button>
+            <form className="profileForm" onSubmit={onSubmit}>
+              <input
+                name="name"
+                placeholder="displayname"
+                type="text"
+                value={newName}
+                onChange={onChange}
+                autoFocus
+                className="formInput"
+              />
+              <input
+                name="photo"
+                placeholder={userObj.photoURL}
+                type="file"
+                accept="image/*"
+                onChange={onFileChange}
+                autoFocus
+                className="formInput"
+              />
+              <input
+                name="Submit"
+                value="Update Profile"
+                className="formBtn"
+                style={{
+                  marginTop: 10,
+                }}
+              />
+              {attachment && (
+                <div>
+                  <img src={attachment} width="50px" height="50px" />
+                  <button onClick={onClearAttachment}>Clear Photo</button>
+                </div>
+              )}
+            </form>
+            <span className="formBtn cancelBtn logOut" onClick={onLogOut}>
+              Log Out
+            </span>
+          </div>
         </>
       ) : (
         <>

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
-//import style from "style.css";
+import "./styles.css";
 //import firebaseApp from "./fbase";
 //console.log(firebaseApp); for first checking
 
